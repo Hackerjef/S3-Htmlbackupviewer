@@ -38,9 +38,9 @@ app.register_blueprint(S3)
 def root():
     return render_template('index.jinja',
                            user=g.user,
-                           parent_backups=list(get_files(allow=['folder'])) if g.user else None,
+                           parent_backups=list(get_files(allow=['folder'])) if g.get('guilds', {}).get('in_guild', False) else None,
                            backup_files=None if not request.args.get("backup_sel") else list(
-                               get_files(allow=['file'], parent=request.args.get('backup_sel'))) if g.user else None)
+                               get_files(allow=['file'], parent=request.args.get('backup_sel'))) if g.get('guilds', {}).get('in_guild', False) else None)
 
 
 @app.route("/robots.txt")
