@@ -1,0 +1,60 @@
+{% extends "base.jinja" %}
+{% block content %}
+
+<main>
+    {% if not user %}
+        <div class="vertical-align-middle center container">
+            <div class="card-panel hoverable" id='main'>
+                <h1 id='dashbots'>S3 Discord Archive Viewer</h1>
+                <h5 class="header col s12 light grey-text">This site is used to display old archives</h5>
+                <br>
+            </div>
+        </div>
+    {% else %}
+        <div class="vertical-align-middle center container">
+            <div class="card-panel hoverable" id='main'>
+                <select aria-label="backup_sel" data-target="dropdown1">>
+                    {% for folder in parent_backups %}
+                    <option {% if request.args.get('backup_sel') == folder %}selected{% endif %} value="{{ folder }}">{{ folder[:-1] }}</option>
+                    {% endfor %}
+                    <option disabled {% if 'backup_sel' not in request.args or request.args.get('backup_sel') not in parent_backups %}selected{% endif %}> -- select a backup -- </option>
+                </select>
+            </div>
+        {% if backup_files %}
+        <div class="card-panel hoverable" id='main'>
+                <select aria-label="backup_file" data-target="dropdown1">>
+                    {% for folder in backup_files %}
+                    <option {% if request.args.get('backup_file') == folder %}selected{% endif %} value="{{ folder }}">{{ folder.replace(request.args.get('backup_sel'), '').replace('.html', '') }}</option>
+                    {% endfor %}
+                    <option disabled {% if 'backup_file' not in request.args or request.args.get('backup_file') not in backup_files %}selected{% endif %}> -- select a backup file -- </option>
+                </select>
+        </div>
+        {% endif %}
+        {% if request.args.get('backup_file') %}
+            <div class="card-panel hoverable" id='main'>
+                <iframe src={{ url_for('S3.fileendpoint', path=request.args.get('backup_file')) }} style="width:100%" target="_blank"></iframe>
+                <a target="_blank" href={{ url_for('S3.fileendpoint', path=request.args.get('backup_file')) }}><i class="material-icons" id='dash'>open_in_new</i></a>
+            </div>
+        {% endif %}
+        </div>
+    {% endif %}
+</main>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // listener for all selection objects
+        document.addEventListener("change", function(e) {
+            console.log(`name: ${e.target.ariaLabel}\nchoice: ${e.target.value}`)
+            let searchParams = new URLSearchParams(window.location.search);
+            if (searchParams.has(e.target.ariaLabel)) {
+                if (searchParams.get(e.target.ariaLabel) === e.target.value)
+                    return
+                searchParams.delete(e.target.ariaLabel)
+            }
+            searchParams.append(e.target.ariaLabel, e.target.value);
+            window.location.search = searchParams.toString();
+        });
+
+    </script>
+{% endblock %}

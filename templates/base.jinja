@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+        <title>S3 Discord Archive Viewer</title>
+        <meta name="theme-color" content="#7289DA">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" integrity="sha512-UJfAaOlIRtdR+0P6C3KUoTDAxVTuy3lnSXLyLKlHYJlcSU8Juge/mjeaxDNMlw9LgeIotgz5FP8eUQPhX1q10A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	    <style>
+            .select-dropdown{
+                color: white;
+                background-color: #37393E;
+            }
+
+            ul.dropdown-content.select-dropdown li span {
+                color: white;
+                background-color: #37393E;
+            }
+
+            body {
+              background-color: #2F3135;
+              color: white;
+            }
+
+            .nav-dash, .dash-content {
+              padding-left: 300px;
+            }
+
+            @media only screen and (max-width : 992px) {
+              .nav-dash, .dash-content {
+                padding-left: 0;
+              }
+            }
+
+            #dropdown1 {
+              background-color: #37393E;
+            }
+
+            #nav-mobile {
+              background-color: #24272A;
+            }
+
+            #nav-dash {
+              background-color: #24272A;
+            }
+
+            .btn {
+              background-color: #7289DA;
+            }
+
+            .btn:visited {
+              background-color: #7289DA;
+            }
+
+            .btn:hover {
+                background-color: rgb(64, 69, 75);
+            }
+
+            nav {
+              background-color: #2F3135;
+              /* z-index: 0; */
+            }
+
+            #dashbots {
+              color: #7289DA;
+              user-select: none;
+            }
+
+            @media (max-width:435px) {
+                #dashbots {
+                  font-size: 13vw;
+                }
+              }
+
+            .nav-icon {
+              vertical-align: middle;
+              margin-left: 10px;
+            }
+
+            .discord {
+              color: #7289DA;
+            }
+
+            #main, #listcard {
+                background-color: #37393E
+            }
+
+            .vertical-align-middle {
+                margin: 0px;
+                padding:0px;
+                float: left;
+                position:absolute;
+                top: 50%;
+                transform: translateY(-50%) translateX(-50%);
+                left:50%;
+            }
+
+            .icon-block {
+              padding: 0 15px;
+            }
+            .icon-block .material-icons {
+                font-size: inherit;
+            }
+        </style>
+    </head>
+
+	<body>
+		{% block navbar %}
+
+		{% include 'navbar.jinja' %}
+
+		{% endblock %}
+
+		{% block content %}{% endblock %}
+
+		<!--  Scripts-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/3.35.0/minified.js" integrity="sha512-4onBOReBl8Ahp9q5ckJwB70wFMa1q74/L2TDh/Lpk0f26ftYp7DPM7KXJheocprl4cicFk9ZshZ8V/Gwkv1ccA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js" integrity="sha512-m2PhLxj2N91eYrIGU2cmIu2d0SkaE4A14bCjVb9zykvp6WtsdriFCiXQ/8Hdj0kssUB/Nz0dMBcoLsJkSCto0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            M.AutoInit();
+            $('.dropdown-trigger').dropdown({coverTrigger: false});
+        </script>
+        {% block scripts %} {% endblock %}
+	</body>
+</html>
