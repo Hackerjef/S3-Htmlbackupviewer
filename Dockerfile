@@ -15,4 +15,4 @@ ENV PATH /opt/poetry/bin:$PATH
 WORKDIR /app
 COPY . /app
 RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
-CMD ["poetry", "run", "python", "main.py", "serve"]
+CMD ["poetry", "run", "gunicorn", "-w", "3", "--access-logfile=-", "-b", "0.0.0.0:80", "s3htmlviewer.web:app"]
