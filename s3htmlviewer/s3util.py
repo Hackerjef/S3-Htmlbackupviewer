@@ -3,17 +3,18 @@ import os
 
 from minio import Minio
 
-client = Minio(os.environ['S3_ENDPOINT_URL'],
-               access_key=os.environ['S3_ACCESS_KEY_ID'],
-               secret_key=os.environ['S3_SECRET_KEY'])
+client = Minio(
+    os.environ['S3_ENDPOINT_URL'],
+    access_key=os.environ['S3_ACCESS_KEY_ID'],
+    secret_key=os.environ['S3_SECRET_KEY'],
+    region=os.environ.get("S3_REGION_NAME", "us-east-1")
+)
 
 
 def get_files(parent=None, allow=None):
-    logging.info("gettingshit")
     if allow is None:
         allow = ["folder"]
-    for obj in client.list_objects(bucket_name=os.environ['S3_BUCKET_NAME'], recursive=False, include_version=False,
-                                   include_user_meta=False, prefix=parent):
+    for obj in client.list_objects(bucket_name=os.environ['S3_BUCKET_NAME'], recursive=False, include_version=False, include_user_meta=False, prefix=parent):
         if (obj.is_dir and "folder" in allow) or (not obj.is_dir and "file" in allow):
             yield obj.object_name
 
